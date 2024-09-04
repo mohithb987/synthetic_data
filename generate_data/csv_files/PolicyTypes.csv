@@ -1,0 +1,6 @@
+PolicyID,PolicyType,Coverage_amount,Premium_amount
+1,Fraud Protection,10000,50
+2,Identity Theft Protection,15000,75
+3,Emergency Medical Coverage,20000,100
+4,Travel Insurance,25000,125
+5,Rental Car Insurance,5000,25

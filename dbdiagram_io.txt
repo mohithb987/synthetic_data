@@ -1,0 +1,111 @@
+Table client {
+  client_id integer [primary key]
+  name varchar(100)
+  age integer
+  gender varchar(10)
+  dependent_count integer
+  education_level varchar(20)
+  marital_status varchar(20)
+  income_category varchar(20)
+  email varchar(100)
+  contact_number varchar(20)
+}
+
+Table bank {
+  bank_id integer [primary key]
+  name varchar(100)
+  branch varchar(100)
+  routing_number varchar(20)
+}
+
+Table credit_card {
+  card_number bigint [primary key]
+  bank_id integer
+  client_id integer
+  card_category varchar(20)
+  credit_limit decimal(10, 2)
+  avg_utilization_ratio decimal(5, 2)
+  total_revolving_balance decimal(10, 2)
+  open_to_buy decimal(10, 2)
+  card_status varchar(10)
+  expiry_date date
+  credit_score integer
+}
+
+Table merchant {
+  merchant_id integer [primary key]
+  name varchar(100)
+  category varchar(100)
+  location varchar(100)
+}
+
+Table transaction {
+  transaction_id integer [primary key]
+  credit_card_number bigint
+  merchant_id integer
+  transaction_amount decimal(10, 2)
+  transaction_time timestamp
+}
+
+Table communication_preference {
+  preference_id integer [primary key]
+  client_id integer
+  preference_type varchar(50)
+  email_subscription boolean
+  sms_subscription boolean
+  phone_call_subscription boolean
+}
+
+Table customer_support {
+  support_ticket_id integer [primary key]
+  client_id integer
+  issue_type varchar(50)
+  status varchar(50)
+  support_ticket_date timestamp
+  assigned_to varchar(100)
+}
+
+Table account_information {
+  account_no integer [primary key]
+  client_id integer
+  bank_id integer
+  account_type varchar(50)
+  balance decimal(10, 2)
+  open_date timestamp
+  close_date timestamp
+  overdraft_limit decimal(10, 2)
+}
+
+Table rewards {
+  reward_id integer [primary key]
+  credit_card_number bigint
+  reward_points_balance integer
+  reward_points_consumed integer
+  expiry_date timestamp
+}
+
+Table policy_type {
+  policy_name varchar(50) [primary key]
+  coverage_amount decimal(10, 2)
+  premium_amount decimal(10, 2)
+}
+
+Table insurance_policy {
+  ip_id integer [primary key]
+  credit_card_number bigint
+  policy_name varchar(50)
+  policy_start_date timestamp
+  policy_end_date timestamp
+}
+
+Ref: credit_card.bank_id > bank.bank_id // many-to-one
+Ref: credit_card.client_id > client.client_id // many-to-one
+Ref: transaction.credit_card_number > credit_card.card_number // many-to-one
+Ref: transaction.merchant_id > merchant.merchant_id // many-to-one
+Ref: communication_preference.client_id > client.client_id // many-to-one
+Ref: customer_support.client_id > client.client_id // many-to-one
+Ref: account_information.client_id > client.client_id // many-to-one
+Ref: account_information.bank_id > bank.bank_id // many-to-one
+Ref: rewards.credit_card_number > credit_card.card_number // many-to-one
+Ref: insurance_policy.credit_card_number > credit_card.card_number // many-to-one
+Ref: insurance_policy.policy_name > policy_type.policy_name // many-to-one
